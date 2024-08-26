@@ -72,7 +72,7 @@ public class CategoryHandler(AppDbContext context) : ICategoryHandler
         }
         catch
         {
-            return new PagedResponse<List<Category>>(null, 500, "Não foi possível consultas as Categorias");
+            return new PagedResponse<List<Category>>(null, 500, "Não foi possível consultar as Categorias");
         }
     }
 
