@@ -5,6 +5,7 @@ using Dima.Core.Models;
 using Dima.Core.Requests.Categories;
 using Dima.Core.Responses;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Dima.Api.Endpoints.Categories;
 
@@ -18,12 +19,12 @@ public class GetAllCategoriesEndpoint : IEndpoint
       .WithOrder(5)
       .Produces<PagedResponse<List<Category>?>>();
 
-    private static async Task<IResult> HandleAsync(ICategoryHandler handler, 
-        [FromQuery]int pageNumber = Configuration.DefaultPageNumber, [FromQuery]int pageSize = Configuration.DefaultPageSize)
+    private static async Task<IResult> HandleAsync(ICategoryHandler handler,
+        ClaimsPrincipal user, [FromQuery]int pageNumber = Configuration.DefaultPageNumber, [FromQuery]int pageSize = Configuration.DefaultPageSize)
     {
         var request = new GetAllCategoriesRequest
         {
-            UserId = "test@balta.io",
+            UserId = user.Identity?.Name ?? string.Empty,
             PageNumber = pageNumber,
             PageSize = pageSize
         };
