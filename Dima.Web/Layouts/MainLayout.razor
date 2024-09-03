@@ -3,10 +3,15 @@
 <MudThemeProvider @bind-IsDarkMode="_isDarkMode" Theme="Configuration.Theme" @ref="_mudThemeProvider" />
 <MudSnackbarProvider />
 
-<MudLayout>
+<AuthorizeView>
+    <Authorized>
+        <MudLayout>
     <MudAppBar>
         Dima
         <MudSpacer />
+        <MudText Typo="Typo.caption">
+            @context.User.Identity?.Name
+        </MudText>
         <MudSwitch @bind-Value="@_isDarkMode" />
     </MudAppBar>
     <MudMainContent>
@@ -15,6 +20,13 @@
         </MudContainer>
     </MudMainContent>
 </MudLayout>
+    </Authorized>
+    <NotAuthorized>
+        <LoginRedirect />
+    </NotAuthorized>
+</AuthorizeView>
+
+
 
 @code {
     private bool _isDarkMode = true;
