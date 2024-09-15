@@ -6,6 +6,7 @@ using Dima.Web.Security;
 using Microsoft.AspNetCore.Components.Authorization;
 using Dima.Core.Handlers;
 using Dima.Web.Handlers;
+using System.Globalization;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -21,7 +22,8 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, CookieAuthenticationStateProvider>();
 builder.Services.AddScoped(x => (ICookieAuthenticationStateProvider)x.GetRequiredService<AuthenticationStateProvider>());
 
-builder.Services.AddMudServices(options => { options.PopoverOptions.CheckForPopoverProvider = false; }); //Retirando o erro do MudDataGrid popover
+builder.Services.AddMudServices();
+//builder.Services.AddMudServices(options => { options.PopoverOptions.CheckForPopoverProvider = false; }); //Retirando o erro do MudDataGrid popover MudBlazor 7
 
 builder.Services.AddHttpClient(Configuration.HttpClientName, opt =>
 {
@@ -31,5 +33,9 @@ builder.Services.AddHttpClient(Configuration.HttpClientName, opt =>
 builder.Services.AddTransient<IAccountHandler, AccountHandler>();
 builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
 builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
+
+builder.Services.AddLocalization();
+System.Globalization.CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("pt-BR");
+System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("pt-BR");
 
 await builder.Build().RunAsync();

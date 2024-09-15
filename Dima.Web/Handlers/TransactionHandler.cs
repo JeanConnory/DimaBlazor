@@ -26,7 +26,7 @@ public class TransactionHandler(IHttpClientFactory httpClientFactory) : ITransac
     }
 
     public async Task<Response<Transaction?>> GetByIdAsync(GetTransactionByIdRequest request)
-        => await _httpClient.GetFromJsonAsync<Response<Transaction?>>($"v1/transaction/{request.Id}")
+        => await _httpClient.GetFromJsonAsync<Response<Transaction?>>($"v1/transactions/{request.Id}")
             ?? new Response<Transaction?>(null, 400, "Não foi possível obter a transação");
 
     public async Task<PagedResponse<List<Transaction>?>> GetByPeriodAsync(GetTransactionByPeriodRequest request)
