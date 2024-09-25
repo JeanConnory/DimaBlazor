@@ -16,6 +16,12 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<long>, long,
 
     public DbSet<Transaction> Transactions { get; set; } = null!;
 
+    public DbSet<Product> Products { get; set; } = null!;
+
+    public DbSet<Voucher> Vouchers { get; set; } = null!;
+
+    public DbSet<Order> Orders { get; set; } = null!;
+
     public DbSet<IncomesAndExpenses> IncomesAndExpenses { get; set; } = null!;
     public DbSet<IncomesByCategory> IncomesByCategories { get; set; } = null!;
     public DbSet<ExpensesByCategory> ExpensesByCategories { get; set; } = null!;
